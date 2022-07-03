@@ -15,13 +15,16 @@ W1
 [X_train,X_test,Y_train,Y_test] = train_test_split(X,y2)
 
 
-[W1, W2]= teach(X_train, Y_train,3,0.05);
+[W1, W2,v_mse_train,v_mse_test]= teach(X_train, Y_train,X_test,Y_test,3,0.05);
 
 y_hat_train = forward(X_train, W1, W2);
 y_hat_test = forward(X_test, W1, W2);
 
 mse_score_test = mse(Y_test, y_hat_test)
 mse_score_train = mse(Y_train, y_hat_train)
+y_hat_train_zeros_ones = coding(y_hat_train)
+y_hat_test_zeros_ones = coding(y_hat_test)
+
 
 lins = linspace(-5, 5, 100).';
 est = forward(lins, W1, W2)
