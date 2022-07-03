@@ -1,0 +1,31 @@
+X = (rand(80,1) - 0.5)*10;
+W = [0.6; 0.2]
+y1 = logistic([X, repmat([1], size(X)(1), 1)]*W);  % wprost logistyczna zaleĹĽnoĹ›Ä‡
+y2 = logistic([X, repmat([1], size(X)(1), 1)]*W) < 0.6;  % encodowane
+%y2 = logistic([X, repmat([1], size(X)(1), 1)]*W) + (rand(size(X)(1), 1)-0.5)/5 > 0.6;  % encodowane, z szumem
+
+%plot(X, y2, 'o')
+%pause
+Y = [y1, y2];
+%y = y1
+
+W1
+
+
+[X_train,X_test,Y_train,Y_test] = train_test_split(X,y2)
+
+
+[W1, W2]= teach(X_train, Y_train,3,0.05);
+
+y_hat_train = forward(X_train, W1, W2);
+y_hat_test = forward(X_test, W1, W2);
+
+mse_score_test = mse(Y_test, y_hat_test)
+mse_score_train = mse(Y_train, y_hat_train)
+
+lins = linspace(-5, 5, 100).';
+est = forward(lins, W1, W2)
+hold on
+plot(X, y2, 'o')
+plot(lins, est, 'r--')
+[y y_hat]
