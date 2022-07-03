@@ -1,6 +1,8 @@
-function [W1, W2] = teach(X, y,nn,lr,epoch_number)
+function [W1, W2,v_mse_train,v_mse_test] = teach(X, y,x_test,y_test,nn,lr,epoch_number)
   nn=3
   lr=0.05
+  v_mse_train=[];
+  v_mse_test=[]
     [W1, W2] = init_network(size(X)(2), size(y)(2), nn);
     for j=1:epoch_number
       for i = 1:500
@@ -10,6 +12,9 @@ function [W1, W2] = teach(X, y,nn,lr,epoch_number)
           W1 = W1 - lr * dW1;
           W2 = W2 - lr* dW2;
           mse_score = mse(y, forward(X, W1, W2));
+          mse_score_test = mse(y_test, forward(x_test, W1, W2));
+          v_mse_train = vertcat(v_mse_train,mse_score)
+          v_mse_test = vertcat(v_mse_test,mse_score_test)
       end
     end
     W1
