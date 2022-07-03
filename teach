@@ -1,0 +1,16 @@
+function [W1, W2] = teach(X, y,nn,lr,epoch_number)
+  nn=3
+  lr=0.05
+    [W1, W2] = init_network(size(X)(2), size(y)(2), nn);
+    for j=1:epoch_number
+      for i = 1:500
+          idx = randi(size(X)(1));
+          y_predicted = forward(X, W1, W2);
+          [dW1, dW2] = calc_weight_update(X(idx, :), W1, W2, y(idx, :), y_predicted(idx, :));
+          W1 = W1 - lr * dW1;
+          W2 = W2 - lr* dW2;
+          mse_score = mse(y, forward(X, W1, W2));
+      end
+    end
+    W1
+end
